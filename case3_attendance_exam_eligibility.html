@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Attendance & Exam Eligibility Checker</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f1f5fa;margin:0;padding:25px;color:#222}
+.container{max-width:650px;margin:auto;background:white;padding:25px;border-radius:12px;box-shadow:0 4px 18px #0002}
+h1{color:#173b70;text-align:center}label{display:block;margin-top:14px;font-weight:bold}
+input{width:100%;padding:11px;margin-top:6px;border:1px solid #aaa;border-radius:6px;box-sizing:border-box}
+button{background:#174c91;color:white;border:0;padding:12px 20px;margin-top:20px;border-radius:6px;cursor:pointer}
+.result{margin-top:20px;padding:15px;background:#eef3fb;border-radius:8px;line-height:1.7}
+</style>
+</head>
+<body>
+<main class="container">
+<h1>Exam Eligibility Checker</h1>
+<p>Enter student details to check eligibility for Minor-1, Minor-2 and Endterm examinations.</p>
+<form id="eligibilityForm">
+<label for="student">Student Name</label><input id="student" required>
+<label for="roll">Roll Number</label><input id="roll" required>
+<label for="attendance">Attendance Percentage</label><input id="attendance" type="number" min="0" max="100" step="0.1" required>
+<label for="performance">Academic Performance (0–100)</label><input id="performance" type="number" min="0" max="100" required>
+<button type="submit">Check Eligibility</button>
+</form>
+<div id="result" class="result" aria-live="polite">Results will appear here.</div>
+</main>
+<script>
+// Demo criteria only. Change these values to match the university's official rules.
+const MIN_ATTENDANCE = 75;
+const MIN_PERFORMANCE = 40;
+const studentRecords = [];
+
+document.getElementById('eligibilityForm').addEventListener('submit',function(event){
+  event.preventDefault();
+  const student={
+    name:document.getElementById('student').value.trim(),
+    roll:document.getElementById('roll').value.trim(),
+    attendance:Number(document.getElementById('attendance').value),
+    performance:Number(document.getElementById('performance').value)
+  };
+  if(student.attendance<0 || student.attendance>100 || student.performance<0 || student.performance>100){
+    document.getElementById('result').textContent='Please enter percentages between 0 and 100.';
+    return;
+  }
+  studentRecords.push(student);
+  const eligible=student.attendance>=MIN_ATTENDANCE && student.performance>=MIN_PERFORMANCE;
+  const status=eligible?'Eligible':'Not Eligible';
+  document.getElementById('result').innerHTML=
+    `<strong>Name:</strong> ${escapeHTML(student.name)}<br>
+     <strong>Roll Number:</strong> ${escapeHTML(student.roll)}<br>
+     <strong>Attendance:</strong> ${student.attendance}%<br>
+     <strong>Academic Performance:</strong> ${student.performance}%<br>
+     <strong>Minor-1:</strong> ${status}<br><strong>Minor-2:</strong> ${status}<br>
+     <strong>Endterm:</strong> ${status}<br>
+     <small>Demo rules: attendance ≥ ${MIN_ATTENDANCE}% and performance ≥ ${MIN_PERFORMANCE}%.</small>
+     <br><strong>Student records checked in this session:</strong> ${studentRecords.length}`;
+});
+function escapeHTML(value){
+  return value.replace(/[&<>"']/g,character=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+}
+</script>
+</body>
+</html>

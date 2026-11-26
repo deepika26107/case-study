@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MRU Student Helpdesk & Circular Portal</title>
+  <style>
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb;color:#222;line-height:1.6}
+    header{background:#173b70;color:white;padding:22px 7%;text-align:center}
+    nav{background:#102b52;padding:12px;text-align:center} nav a{color:white;text-decoration:none;margin:0 14px}
+    main{max-width:1100px;margin:25px auto;padding:0 18px}
+    .hero,.panel{background:white;padding:22px;border-radius:12px;margin-bottom:20px;box-shadow:0 3px 12px #00000012}
+    .hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap}.hero img{width:220px;max-width:100%;border-radius:10px}
+    h2{color:#173b70}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:15px}
+    .card{background:#eef3fb;padding:16px;border-radius:9px}.card a{color:#174c91}
+    label{display:block;margin-top:12px;font-weight:bold}input,select,textarea{width:100%;padding:10px;margin-top:5px;border:1px solid #bbb;border-radius:6px}
+    button{margin-top:15px;background:#174c91;color:white;border:0;padding:11px 20px;border-radius:6px;cursor:pointer}
+    footer{text-align:center;background:#102b52;color:white;padding:15px}
+    @media(max-width:600px){nav a{display:inline-block;margin:5px}.hero{display:block}}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Malla Reddy University</h1>
+  <p>Student Helpdesk & Circular Portal</p>
+</header>
+<nav>
+  <a href="#notices">Notices</a><a href="#links">Important Links</a><a href="#downloads">Downloads</a><a href="#enquiry">Student Enquiry</a>
+</nav>
+<main>
+  <section class="hero">
+    <div><h2>Welcome to the Student Helpdesk</h2>
+      <p>Find academic circulars, examination notifications, campus announcements and student contact information in one place.</p>
+    </div>
+    <img src="https://placehold.co/500x300/dae7f7/173b70?text=MRU+Campus" alt="University campus placeholder image">
+  </section>
+  <section id="notices" class="panel">
+    <h2>Latest Notices & Circulars</h2>
+    <div class="cards">
+      <article class="card"><h3>Academic Circular</h3><p>Check the latest academic announcements.</p><a href="#">View circular</a></article>
+      <article class="card"><h3>Examination Notification</h3><p>Check examination dates and instructions.</p><a href="#">View notification</a></article>
+      <article class="card"><h3>Campus Announcement</h3><p>Read important campus updates.</p><a href="#">Read announcement</a></article>
+    </div>
+  </section>
+  <section id="links" class="panel"><h2>Important Links</h2>
+    <ul><li><a href="#">Student Login</a></li><li><a href="#">Library Portal</a></li><li><a href="#">Examination Cell</a></li><li><a href="#">University Website</a></li></ul>
+  </section>
+  <section id="downloads" class="panel"><h2>Downloadable Resources</h2>
+    <p><a href="sample-circular.pdf" download>Download sample circular (add your PDF file)</a></p>
+    <p><a href="academic-calendar.pdf" download>Download academic calendar (add your PDF file)</a></p>
+  </section>
+  <section class="panel"><h2>Contact Information</h2><p>Email: helpdesk@mru.edu.in<br>Office: Student Support Centre, University Campus</p></section>
+  <section id="enquiry" class="panel">
+    <h2>Student Enquiry Form</h2>
+    <form onsubmit="sendEnquiry(event)">
+      <label for="name">Full Name</label><input id="name" name="name" required>
+      <label for="roll">Roll Number</label><input id="roll" name="roll" required>
+      <label for="email">Email</label><input id="email" name="email" type="email" required>
+      <label for="category">Enquiry Type</label>
+      <select id="category" name="category" required><option value="">Select</option><option>Academics</option><option>Examinations</option><option>Hostel</option><option>Other</option></select>
+      <label for="message">Your Enquiry</label><textarea id="message" name="message" rows="4" required></textarea>
+      <button type="submit">Submit Enquiry</button>
+    </form>
+    <p id="response" role="status"></p>
+  </section>
+</main>
+<footer><p>&copy; 2026 Malla Reddy University | Student Helpdesk</p></footer>
+<script>
+function sendEnquiry(event){
+  event.preventDefault();
+  const name=document.getElementById('name').value.trim();
+  document.getElementById('response').textContent=
+    `Thank you, ${name}. Your enquiry has been recorded in this demo.`;
+  event.target.reset();
+}
+</script>
+</body>
+</html>

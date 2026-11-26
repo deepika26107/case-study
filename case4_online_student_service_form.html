@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRU Online Student Service Portal</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;background:#f2f5fa;margin:0;padding:25px;color:#222}
+.container{max-width:700px;margin:auto;background:white;padding:25px;border-radius:12px;box-shadow:0 4px 18px #0002}
+h1{color:#173b70;text-align:center}label{display:block;font-weight:bold;margin-top:13px}
+input,select,textarea{width:100%;padding:10px;margin-top:5px;border:1px solid #aaa;border-radius:6px}
+button{background:#174c91;color:white;border:0;padding:12px 20px;border-radius:6px;margin-top:18px;cursor:pointer}
+#feedback{margin-top:18px;padding:12px;border-radius:7px;background:#eaf5ed}
+</style>
+</head>
+<body>
+<main class="container">
+<h1>Online Student Service Portal</h1>
+<p>Submit a leave request, apply for a bonafide certificate or register for an elective course.</p>
+<form id="serviceForm">
+<label for="name">Student Name</label><input id="name" required>
+<label for="roll">Roll Number</label><input id="roll" required>
+<label for="email">Email Address</label><input id="email" type="email" required>
+<label for="service">Select Service</label>
+<select id="service" required>
+<option value="">Choose a service</option><option value="Leave Request">Leave Request</option>
+<option value="Bonafide Certificate">Bonafide Certificate</option><option value="Elective Course Registration">Elective Course Registration</option>
+</select>
+<div id="extraFields"></div>
+<button type="submit">Submit Request</button>
+</form>
+<div id="feedback" aria-live="polite">Your submission status will appear here.</div>
+<h2>Submitted Requests (this session)</h2><ul id="requestList"></ul>
+</main>
+<script>
+const requests=[];
+const service=document.getElementById('service');
+const extra=document.getElementById('extraFields');
+service.addEventListener('change',function(){
+  if(this.value==='Leave Request'){
+    extra.innerHTML='<label for="fromDate">From Date</label><input type="date" id="fromDate" required><label for="toDate">To Date</label><input type="date" id="toDate" required><label for="reason">Reason</label><textarea id="reason" rows="3" required></textarea>';
+  }else if(this.value==='Bonafide Certificate'){
+    extra.innerHTML='<label for="purpose">Purpose</label><input id="purpose" placeholder="e.g. Bus pass / scholarship" required>';
+  }else if(this.value==='Elective Course Registration'){
+    extra.innerHTML='<label for="course">Elective Course</label><select id="course" required><option value="">Select course</option><option>Artificial Intelligence</option><option>Cloud Computing</option><option>Data Science</option><option>Internet of Things</option></select>';
+  }else{extra.innerHTML='';}
+});
+document.getElementById('serviceForm').addEventListener('submit',function(event){
+  event.preventDefault();
+  const request={name:document.getElementById('name').value.trim(),roll:document.getElementById('roll').value.trim(),email:document.getElementById('email').value.trim(),service:service.value};
+  if(request.service==='Leave Request'){
+    request.from=document.getElementById('fromDate').value;request.to=document.getElementById('toDate').value;
+    request.details=document.getElementById('reason').value.trim();
+    if(request.to<request.from){document.getElementById('feedback').textContent='End date cannot be earlier than start date.';return;}
+  }else if(request.service==='Bonafide Certificate'){request.details=document.getElementById('purpose').value.trim();}
+  else{request.details=document.getElementById('course').value;}
+  requests.push(request);
+  const item=document.createElement('li');
+  item.textContent=`${request.name} (${request.roll}) — ${request.service}: ${request.details}`;
+  document.getElementById('requestList').appendChild(item);
+  document.getElementById('feedback').textContent='Request submitted successfully in this demo. No information has been sent to the university.';
+  this.reset();extra.innerHTML='';
+});
+</script>
+</body>
+</html>

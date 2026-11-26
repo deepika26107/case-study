@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRU Student Services</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb;color:#202b3c}
+header{background:linear-gradient(120deg,#173b70,#2875b9);color:white;padding:30px 7%;text-align:center}
+nav{background:#102b52;padding:14px;text-align:center}nav a{color:white;text-decoration:none;margin:0 14px}
+.container{max-width:1100px;margin:30px auto;padding:0 18px}.intro{text-align:center;margin-bottom:25px}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;padding:24px;border-radius:13px;box-shadow:0 5px 18px #172b4d14;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-6px);box-shadow:0 9px 25px #172b4d25}
+.icon{font-size:35px}.card h3{color:#174c91}.card a{display:inline-block;margin-top:8px;color:#174c91;font-weight:bold}
+footer{text-align:center;background:#102b52;color:white;padding:18px;margin-top:35px}
+@media(max-width:600px){nav a{display:inline-block;margin:6px}.container{margin:18px auto}}
+</style>
+</head>
+<body>
+<header><h1>Malla Reddy University</h1><p>Student Services Homepage</p></header>
+<nav><a href="#services">Services</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+<main class="container">
+<section class="intro" id="about"><h2>Everything You Need, in One Place</h2><p>Access important university services quickly and easily.</p></section>
+<section class="services" id="services">
+  <article class="card"><div class="icon">📚</div><h3>Library</h3><p>Access library resources, books and digital learning materials.</p><a href="#">Open Library →</a></article>
+  <article class="card"><div class="icon">🚌</div><h3>Transport</h3><p>Find bus routes, transport schedules and related updates.</p><a href="#">Transport Details →</a></article>
+  <article class="card"><div class="icon">🏠</div><h3>Hostel</h3><p>View hostel information, facilities and student guidelines.</p><a href="#">Hostel Services →</a></article>
+  <article class="card"><div class="icon">💼</div><h3>Placements</h3><p>Explore placement announcements, training and opportunities.</p><a href="#">Placement Cell →</a></article>
+  <article class="card"><div class="icon">📝</div><h3>Examinations</h3><p>Check examination timetables, notifications and results.</p><a href="#">Exam Information →</a></article>
+  <article class="card"><div class="icon">🎓</div><h3>Academic Services</h3><p>Find academic calendars, circulars and student support.</p><a href="#">Academic Portal →</a></article>
+</section>
+</main>
+<footer id="contact"><p>Contact Student Services | Malla Reddy University</p><p>&copy; 2026 MRU</p></footer>
+</body>
+</html>
